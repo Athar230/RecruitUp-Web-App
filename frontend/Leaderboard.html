@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Skills Leaderboard - Graduate Performance</title>
+  <link rel="stylesheet" href="Leaderboard.css" />
+</head>
+
+<body class="page-wrapper">
+  <header class="main-header">
+    <div class="header-container">
+      <h1 class="brand">
+        <a href="../index.html" class="logo">RecruitUp</a>
+      </h1>
+
+      <nav class="main-nav" role="navigation" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../../Recruiter Resources/RecruiterResources.html">Challenges</a></li>
+          <li><a href="../../Leaderboard/Leaderboard.html" class="active" aria-current="page">Skills Leaderboard</a></li>
+          <li><a href="../../Talent Search/graduateportfolio.html">Talent Search</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="recruiter-login-btn" class="btn btn-login" type="button">Sign In as Recruiter</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" id="main">
+    <div class="content-wrapper">
+      <section class="page-title">
+        <h2 class="title-primary">Skills Leaderboard</h2>
+        <p class="title-subtitle">See which graduates are performing best in recruiter challenges.</p>
+        <button id="reset-filters" class="btn btn-reset" type="button" aria-label="Reset all filters" style="margin-top:0.5rem;margin-left:0.2rem">Reset Filters</button>
+      </section>
+
+      <!-- Live region for screen readers: updates when results change -->
+      <div id="leaderboard-status" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
+      <!-- Dev status: shows resolved JSON URL, last fetch time and row count -->
+      <div id="leaderboard-dev-status" style="font-size:0.9rem;color:#666;margin-top:0.5rem"></div>
+      <div id="auth-status" style="font-size:0.95rem;color:#234;margin-top:0.35rem"></div>
+
+      <!-- Filter bar implemented with a list + buttons - no extra divider elements -->
+      <section class="filter-section" aria-label="Leaderboard filters">
+        <ul class="filter-bar" role="list">
+          <li class="filter-item">
+            <button class="filter-dropdown" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-skills">
+              <span class="filter-label">All Assessments</span>
+              <span class="filter-icon" aria-hidden="true">▾</span>
+            </button>
+
+            <!-- Skills menu now shows assessment types: recruiter challenges or psychometric tests -->
+            <ul id="filter-skills" class="dropdown-menu" role="listbox" hidden>
+              <li role="option" data-value="all">All Assessments</li>
+              <li role="option" data-value="recruiter-challenges">Recruiter Challenges</li>
+              <li role="option" data-value="psychometric-tests">Psychometric Tests</li>
+            </ul>
+          </li>
+
+          <li class="filter-item">
+            <button class="filter-dropdown" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-companies">
+              <span class="filter-label">All Companies</span>
+              <span class="filter-icon" aria-hidden="true">▾</span>
+            </button>
+
+            <!-- Companies menu -->
+            <ul id="filter-companies" class="dropdown-menu" role="listbox" hidden>
+              <li role="option" data-value="all">All Companies</li>
+              <li role="option" data-value="instream">InStream</li>
+              <li role="option" data-value="globex">Globex</li>
+              <li role="option" data-value="devcore">DevCore</li>
+            </ul>
+          </li>
+
+          <li class="filter-item">
+            <button class="filter-dropdown" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-category">
+              <span class="filter-label">All Categories</span>
+              <span class="filter-icon" aria-hidden="true">▾</span>
+            </button>
+
+            <!-- Category menu -->
+            <ul id="filter-category" class="dropdown-menu" role="listbox" hidden>
+              <li role="option" data-value="all">All Categories</li>
+              <li role="option" data-value="logical">Logical</li>
+              <li role="option" data-value="numerical">Numerical</li>
+              <li role="option" data-value="verbal">Verbal</li>
+            </ul>
+          </li>
+
+          <li class="filter-item">
+            <button class="filter-dropdown" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-level">
+              <span class="filter-label">All Levels</span>
+              <span class="filter-icon" aria-hidden="true">▾</span>
+            </button>
+
+            <!-- Level menu -->
+            <ul id="filter-level" class="dropdown-menu" role="listbox" hidden>
+              <li role="option" data-value="all">All Levels</li>
+              <li role="option" data-value="beginner">Beginner</li>
+              <li role="option" data-value="intermediate">Intermediate</li>
+              <li role="option" data-value="advanced">Advanced</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Leaderboard card with table (keeps structure simple) -->
+      <section class="leaderboard-section">
+        <div class="leaderboard-card">
+          <table class="leaderboard-table" role="table" aria-label="Skills leaderboard">
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Graduate</th>
+                <th scope="col">Degree / Year</th>
+                <th scope="col">Skill Score</th>
+                <th scope="col" class="text-center">Contact</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><span class="rank-badge rank-gold">1</span></td>
+                <td class="graduate-col">
+                  <div class="graduate-info">
+                    <div class="avatar">AS</div>
+                    <div class="graduate-name">Aisha Soergasigar</div>
+                  </div>
+                </td>
+                <td>
+                  <div class="degree-info">
+                    <div class="degree-name">BSc Computer Science</div>
+                    <div class="degree-year">2025</div>
+                  </div>
+                </td>
+                <td><span class="skill-score">87/100</span></td>
+                <td class="text-center">
+                  <a class="btn-contact" href="../../Talent%20Search/graduateportfolio.html#Aisha%20Soergasigar" aria-label="Contact Asha Soergasigar">✉</a>
+                </td>
+              </tr>
+
+              <!-- Repeat rows for ranks 2..8 (Marcus, Sarah, James, Emily, Daniel, Olivia, Michael) -->
+              <!-- Keep the markup pattern identical — only changing text & classes for top-three badges. -->
+            </tbody>
+          </table>
+
+          <div class="pagination" role="navigation" aria-label="Leaderboard pagination">
+            <button class="pagination-btn" aria-label="Previous page">‹</button>
+            <span class="page-current">1</span>
+            <button class="pagination-btn" aria-label="Next page">›</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="main-footer">
+    <div class="footer-container">
+      <nav class="footer-nav" role="navigation" aria-label="Footer">
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Decent Work &amp; Economic Growth</a>
+      </nav>
+    </div>
+</footer>
+
+
+  <!-- wire up accessible filter dropdown behaviour -->
+  <script src="Leaderboard.js" defer></script>
+  <!-- load data & render leaderboard table from the backend API -->
+  <script src="Leaderboard.data.js" data-api="http://localhost:8080/api/leaderboard" defer></script>
+</body>
+</html>
